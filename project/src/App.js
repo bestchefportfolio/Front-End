@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 // Component section start
-// import myContext from './context/myContext';
+import myContext from './context/myContext';
 
 // Component section end
 
