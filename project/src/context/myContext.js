@@ -1,6 +1,17 @@
-import { createContext } from 'react'
+import React from 'react'
 
-const myContext = createContext();
+export const MyContext = React.createContext();
 
-
-export default myContext;
+export class MyProvider extends React.Component {
+    state = {
+        name: "",
+        
+    }
+    render() {
+        return <MyContext.Provider value={{
+            ...this.state
+        }}>
+            {this.props.children}
+        </MyContext.Provider>
+    }
+}
