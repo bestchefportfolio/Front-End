@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Route } from "react-router-dom";
+import "./App.css";
+import FormikOnboardForm from "./components/signUp/signUp";
 
 // Component section start
+
+
+
 import MyContext from './context/myContext';
 import Home from './components/home/home';
+
 // Component section end
 
 function App() {
   return (
     <div className="App">
+
+      <div className="signUpForm">
+        <Route exact path="/signup">
+          <FormikOnboardForm />
+        </Route>
+      </div>
+
       <Route exact path="/" component={Home} />
+
     </div>
   );
 }
