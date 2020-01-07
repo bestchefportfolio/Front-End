@@ -5,7 +5,7 @@ import './App.css';
 
 // Component section start
 import MyContext from './context/myContext';
-import Home from './components/home';
+import Home from './components/home/home';
 // Component section end
 
 function App() {
