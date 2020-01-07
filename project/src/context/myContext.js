@@ -8,9 +8,7 @@ export class MyProvider extends React.Component {
         
     }
     render() {
-        return <MyContext.Provider value={{
-            ...this.state
-        }}>
+        return <MyContext.Provider value={""}>
             {this.props.children}
         </MyContext.Provider>
     }
