@@ -4,9 +4,20 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button } from "reactstrap";
+import "../signUp/signUp.css";
+import styled from "styled-components";
+
+const Input = styled(Field)`
+  border-radius: 6px;
+`;
 
 const SignUpForm = ({ values, errors, touched, status }) => {
   const [user, setUser] = useState([]);
+  const isEnabled =
+    values.username.length > 0 &&
+    values.password.length > 5 &&
+    values.name.length > 0 &&
+    values.email.length > 0;
   useEffect(() => {
     console.log("status has changed", status);
     status && setUser(user => [...user, status]);
@@ -17,48 +28,42 @@ const SignUpForm = ({ values, errors, touched, status }) => {
       <Form>
         <div>
           {touched.username && errors.username && (
-            <p class="error">{errors.username}</p>
+            <p className="error">{errors.username}</p>
           )}
-          <Field type="text" name="username" placeholder="Username" />
+          <Input type="text" name="username" placeholder="Username" />
         </div>
-
         <div>
           {touched.password && errors.password && (
-            <p class="error">{errors.password}</p>
+            <p className="error">{errors.password}</p>
           )}
-          <Field type="password" name="password" placeholder="Password" />
-        </div>
-        {/* <div>
-          {touched.confirm && errors.confirm && (
-            <p class="error">{errors.confirm}</p>
-          )}
-          <Field
-            type="password"
-            name="confirm"
-            placeholder="Confirm password"
-          />
-        </div> */}
-        <div>
-          {touched.name && errors.name && <p class="error">{errors.name}</p>}
-          <Field type="text" name="name" placeholder="Name" />
+          <Input type="password" name="password" placeholder="Password" />
         </div>
         <div>
-          {touched.email && errors.email && <p class="error">{errors.email}</p>}
-          <Field type="email" name="email" placeholder="Email" />
+          {touched.name && errors.name && (
+            <p className="error">{errors.name}</p>
+          )}
+          <Input type="text" name="name" placeholder="Name" />
+        </div>
+        <div>
+          {touched.email && errors.email && (
+            <p className="error">{errors.email}</p>
+          )}
+          <Input type="email" name="email" placeholder="Email" />
         </div>
         <div className="isChef">
           <div>
             {touched.is_chef && errors.is_chef && (
-              <p class="error">{errors.is_chef}</p>
+              <p className="error">{errors.is_chef}</p>
             )}
             <Field type="checkbox" name="is_chef" checked={values.is_chef} />
             <span> Are you a chef?</span>
+            <p>If yes, continue below:</p>
           </div>
           <div>
             {touched.location && errors.location && (
-              <p class="error">{errors.location}</p>
+              <p className="error">{errors.location}</p>
             )}
-            <Field
+            <Input
               type="text"
               name="location"
               placeholder="Location"
@@ -67,9 +72,9 @@ const SignUpForm = ({ values, errors, touched, status }) => {
           </div>
           <div>
             {touched.phone_number && errors.phone_number && (
-              <p class="error">{errors.phone_number}</p>
+              <p className="error">{errors.phone_number}</p>
             )}
-            <Field
+            <Input
               type="number"
               name="phone_number"
               placeholder="Enter phone number"
@@ -78,18 +83,17 @@ const SignUpForm = ({ values, errors, touched, status }) => {
           </div>
           <div>
             {touched.business_name && errors.business_name && (
-              <p class="error">{errors.business_name}</p>
+              <p className="error">{errors.business_name}</p>
             )}
-            <Field
+            <Input
               type="text"
               name="business_name"
               placeholder="Business name"
               disabled={!values.is_chef}
             />
           </div>
-
           <div>
-            <Button type="submit" color="primary">
+            <Button disabled={!isEnabled} type="submit" color="primary">
               Submit
             </Button>
           </div>
@@ -113,7 +117,6 @@ const FormikOnboardForm = withFormik({
     return {
       username: username || "",
       password: password || "",
-      //   confirm: confirm || "",
       name: name || "",
       email: email || "",
       is_chef: is_chef || false,
@@ -129,9 +132,6 @@ const FormikOnboardForm = withFormik({
     password: Yup.string()
       .min(6, "Password must be 6 characters or longer")
       .required("Password is required"),
-    // confirm: Yup.string()
-    //   .oneOf([Yup.ref("password"), null], "Passwords must match")
-    //   .required("Password confirm is required"),
     name: Yup.string().required("Name is required"),
     email: Yup.string()
       .email("Invalid email address")
@@ -139,6 +139,7 @@ const FormikOnboardForm = withFormik({
   }),
   //===END VALIDATION SCHEMA===
   handleSubmit(values, { setStatus, resetForm }) {
+    const { username, password, name, email, is_chef } = values;
     console.log("Submitting!", values);
     if (values.is_chef === true)
       axios
@@ -151,7 +152,13 @@ const FormikOnboardForm = withFormik({
         .catch(err => console.log(err.response));
     else
       axios
-        .post(`https://chef-portfolio-be.herokuapp.com/register`, values)
+        .post(`https://chef-portfolio-be.herokuapp.com/register`, {
+          username,
+          password,
+          name,
+          email,
+          is_chef
+        })
         .then(res => {
           console.log("success", res);
           setStatus(res.data);
