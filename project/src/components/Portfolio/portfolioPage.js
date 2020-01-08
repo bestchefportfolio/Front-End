@@ -13,8 +13,8 @@ const Btn = styled(Button)`
 
 export default function PortfolioPage() {
   const [recipes, setRecipes] = useState([]);
-  const [chefName, setChefName] = useState();
-  const [chefBusiness, setChefBusiness] = useState();
+  const [chefName, setChefName] = useState('');
+  const [chefBusiness, setChefBusiness] = useState('');
   const { chef_id } = useParams();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function PortfolioPage() {
         `
       )
       .then(response => {
+        console.log(chef_id);
         console.log(response.data.chefRecipes);
         setRecipes(response.data.chefRecipes);
         setChefName(response.data.chef.chef_name);
