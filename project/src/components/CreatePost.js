@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 // import {axiosWithAuth} from '../utils/axiosWithAuth';
 import {Context} from '../context/RecipeContext';
+// import { setIn } from 'formik';
 
 
 const CreateRecipe = props => {
@@ -10,7 +11,11 @@ const CreateRecipe = props => {
         title: '',
         servings: 0,
         instructions: '',
-        images: ''
+        images: []
+    });
+
+    const [ingredients, setIngredients] = useState({
+        ingredients: ''
     });
 
     const handleChange = e => {
@@ -20,9 +25,10 @@ const CreateRecipe = props => {
             [e.target.name]: e.target.value
         });
     };
+
     const onSubmit = e => {
         e.preventDefault();
-        if(document.getElementById('title').value != '') {
+        if(document.getElementById('title').value !== '') {
             state.dispatch({
                 type: 'ADD',
                 payload: [addRecipe]
@@ -32,13 +38,29 @@ const CreateRecipe = props => {
                 servings: 0,
                 instructions: '',
                 images: ''
-            })
+            });
         }
     };
 
+    const Ingredient = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (ingredients.ingredients !== '') {
+            setAddRecipe({
+                ...addRecipe,
+                ingredients: 
+                [...addRecipe.ingredients, ingredients.ingredients]
+            });
+            setIngredients({
+                ingredients: ''
+            });
+            document.getElementById('recipe_ingredients').value = '';
+        }
+    }
+
     return (
         <form autoComplete='off' className='create-recipe' id='form' onSubmit={onSubmit}>
-            <h1>Create New Recipe</h1>
+            <h3>Create New Recipe</h3>
                 <input
                     type='text'
                     // recipe_id='title'
@@ -64,14 +86,28 @@ const CreateRecipe = props => {
                     onChange={handleChange}
                     required
                     />
+                    
                 <input
-                    type='image'
+                    type='file'
                     name='image'
                     value={addRecipe.image}
                     placeholder='Image'
                     onChange={handleChange}
                     />
-                <button type='submit' onClick={onSubmit}>Submit</button>
+
+                {/* {addRecipe.ingredients.map((item, index) => (
+                    <div key={index}>{item}</div>
+                ))} */}
+                <input
+                    type='text'
+                    name='ingredients'
+                    value={ingredients.ingredients}
+                    placeholder='Ingredients'
+                    onChange={handleChange} 
+                    />
+                    <button type='submit' onClick={Ingredient} onSubmit={onSubmit}>Add Ingredients</button>
+
+                <button type='submit' onClick={onSubmit}>Submit Recipe</button>
         </form>
     )
 };

@@ -5,8 +5,8 @@ import FormikOnboardForm from "./components/signUp/signUp";
 
 // Component section start
 
-
-
+import CreatePost from './components/CreatePost';
+import Login from './components/login/login';
 import MyContext from './context/myContext';
 import Home from './components/home/home';
 
@@ -21,9 +21,9 @@ function App() {
           <FormikOnboardForm />
         </Route>
       </div>
-
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/create-recipe' component={CreatePost} />
       <Route exact path="/" component={Home} />
-
     </div>
   );
 }
