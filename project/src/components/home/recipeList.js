@@ -11,12 +11,13 @@ export default function RecipeList() {
         .then(response =>{
           
           console.log(response);
-          setData(response.data.results);
+          setData(response.data.all_recipes);
         })
         .catch(error =>{
           console.log(error);
         });
       }, []);
+      console.log(data);
   return( 
     <div><SearchForm data={data}/></div> 
   )
