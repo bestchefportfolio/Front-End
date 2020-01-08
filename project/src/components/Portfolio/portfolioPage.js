@@ -7,11 +7,14 @@ import { Button } from "reactstrap";
 import styled from "styled-components";
 
 const Btn = styled(Button)`
+  margin-top: 1%;
   margin-bottom: 2%;
 `;
 
 export default function PortfolioPage() {
   const [recipes, setRecipes] = useState([]);
+  const [chefName, setChefName] = useState();
+  const [chefBusiness, setChefBusiness] = useState();
   const { chef_id } = useParams();
 
   useEffect(() => {
@@ -22,8 +25,10 @@ export default function PortfolioPage() {
         `
       )
       .then(response => {
-        console.log(response.data);
+        console.log(response.data.chefRecipes);
         setRecipes(response.data.chefRecipes);
+        setChefName(response.data.chef.chef_name);
+        setChefBusiness(response.data.chef.business_name);
       })
       .catch(error => {
         console.log("Server error", error);
@@ -32,8 +37,8 @@ export default function PortfolioPage() {
 
   return (
     <section className="recipe-list">
-      <h1>Portfolio Page</h1>
-      <h2></h2>
+      <h1>{chefName}'s Portfolio Page</h1>
+      <h2>{chefBusiness}</h2>
       <Btn color="primary">Create post</Btn>
       {recipes.map((item, index) => {
         return (
@@ -41,6 +46,9 @@ export default function PortfolioPage() {
             key={index}
             title={item.title}
             images={item.images}
+            randomImage={
+              "https://source.unsplash.com/collection/239835/700x500"
+            }
             instructions={item.instructions}
           />
         );
