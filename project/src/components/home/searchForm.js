@@ -1,36 +1,49 @@
-import React from 'react';
-import axios from 'axios';
-import './home.css';
+import React, { useState } from "react";
+import RecipeCard from "../../components/RecipeCard";
 
-class SearchForm extends React.Component {
 
-    constructor( props ){
-        super( props );
+const SearchForm=(props)=> {
+  const [query, setQuery] = useState("");
+  
+  const recipes = props.data.filter(recipe =>
+    recipe.title.toLowerCase().includes(query.toLowerCase())
+  );
 
-        this.state = {
-            query: '',
-            results: {},
-            loading: false,
-            message: ''
-        }
-    }
-
-    render(){
-        return(
-            <div className="container">
-                <h2 className="heading"> Live Search</h2>
-                <label className="search-label" htmlFor="search-input">
-                    <input
-                        type="text"
-                        value=""
-                        id="search-input"
-                        placeholder="Let your hunger guide you...(e.g: Pizza, Soup, Salad..)"
-                        />
-                        <i class="fa fa-search" aria-hidden="true"/>
-                </label>
-            </div>
-        )
-    }
+  const handleInputChange = event => {
+    setQuery(event.target.value);
+  };
+  
+  return (
+    <div className="Characters">
+      <form className="search">
+        <input
+          type="text"
+          onChange={handleInputChange}
+          value={query}
+          name="name"
+          tabIndex="0"
+          className="prompt search-name"
+          placeholder="Search by name"
+          autoComplete="off"
+        />
+      </form>
+      <div className="Character">
+        {recipes.map(data => {
+          return (
+            <RecipeCard
+            key={data.id}
+            title={data.title}
+            servings={data.servings}
+            instructions={data.status}
+            images={data.images}
+            // src={data.image} 
+            />
+            
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-export default SearchForm
+export default SearchForm;
