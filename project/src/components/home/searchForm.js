@@ -14,7 +14,7 @@ const SearchForm=(props)=> {
   };
   
   return (
-    <div className="Characters">
+    <div className="Recipes">
       <form className="search">
         <input
           type="text"
@@ -27,14 +27,14 @@ const SearchForm=(props)=> {
           autoComplete="off"
         />
       </form>
-      <div className="Character">
+      <div className="Recipe">
         {recipes.map(data => {
           return (
             <RecipeCard
             key={data.id}
             title={data.title}
             servings={data.servings}
-            instructions={data.status}
+            instructions={data.instructions}
             images={data.images}
             // src={data.image} 
             />
