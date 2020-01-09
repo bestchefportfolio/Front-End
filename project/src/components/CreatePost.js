@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import axiosWithAuth from "../utils/axiosWithAuth";
-// import {axiosWithAuth} from '../utils/axiosWithAuth';
-// import { setIn } from 'formik';
+import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth';
 import jwt from "jsonwebtoken";
 
 const id = jwt.decode(localStorage.getItem("token"));
@@ -16,7 +14,7 @@ const CreateRecipe = props => {
     instructions: "",
     images: null
   });
-
+  
   //   useEffect(() => {
   //
   //   },[])
