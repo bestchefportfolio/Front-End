@@ -54,7 +54,7 @@ const CreateRecipe = props => {
     const id = chef_id;
     axiosWithAuth()
       .post(
-        `https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes`
+        `https://chef-portfolio-be.herokuapp.com/chef/${id}/recipes`
       )
       .then(response => {
         console.log("success", response);
