@@ -5,7 +5,7 @@ const axiosWithAuth = () => {
         return axios.create({
             baseURL: 'https://chef-portfolio-be.herokuapp.com/api',
             headers: {
-                Authorization: token
+                authorization: token
             }
         });
     };

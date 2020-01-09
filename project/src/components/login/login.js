@@ -15,12 +15,13 @@ const Login = props => {
 
     const loginPost = e => {
         e.preventDefault();
+        console.log(currentUser);
         axiosWithAuth() 
             .post('https://chef-portfolio-be.herokuapp.com/login/', currentUser) // check path 
             .then(res => {
-                console.log(res);
-                localStorage.setItem('token', res.data.payload); //retriving token from api
-                props.history.push('/portfolio/:chef_id');  //add path to portfolio page when it's ready
+                console.log('success', res);
+                localStorage.setItem('token', res.data.token); //retriving token from api
+                props.history.push('/portfolio/1');  //add path to portfolio page when it's ready
             })
             .catch(err => {
                 console.log('Login Error Detected', err)
