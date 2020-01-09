@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, CardTitle, CardText, CardImg } from "reactstrap";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Recipe from "./Recipe";
 
 
 const Rcard = styled(Card)`
@@ -21,7 +23,9 @@ export default function RecipeCard(props) {
   return (
     <div>
       <Rcard outline color="warning">
-        <CardHeader className="card-header">{props.title}</CardHeader>
+        <Link to={`/recipe/:recipe_id`}>
+          <CardHeader className="card-header">{props.title}</CardHeader>
+        </Link>
         <CardImg
           src={props.images || props.randomImage}
           top

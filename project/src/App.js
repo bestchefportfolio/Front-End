@@ -8,6 +8,7 @@ import PrivateRoute from "./components/login/privateRoute";
 import FormikOnboardForm from "./components/signUp/signUp";
 import Login from "./components/login/login";
 import PortfolioPage from "./components/Portfolio/portfolioPage";
+import Recipe from "./components/Recipe";
 // Component section end
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/login" component={Login} />
       <Route exact path="/create-recipe" component={CreatePost} />
       <Route exact path="/" component={Home} />
+      <Route exact path="/recipe/:recipe_id" component={Recipe} />
 
       <div className="login">
         <PrivateRoute
