@@ -75,7 +75,7 @@ const SignUpForm = ({ values, errors, touched, status }) => {
               <p className="error">{errors.phone_number}</p>
             )}
             <Input
-              type="number"
+              type="text"
               name="phone_number"
               placeholder="Enter phone number"
               disabled={!values.is_chef}
@@ -140,10 +140,19 @@ const FormikOnboardForm = withFormik({
   //===END VALIDATION SCHEMA===
   handleSubmit(values, { setStatus, resetForm }) {
     const { username, password, name, email, is_chef } = values;
-    console.log("Submitting!", values);
+    const chefVal = {
+      username: username,
+      password: password,
+      name: name,
+      email: email,
+      location: values.location,
+      phone_number: values.phone_number,
+      business_name: values.business_name
+    }
+    console.log("Submitting!", chefVal);
     if (values.is_chef === true)
       axios
-        .post(`https://chef-portfolio-be.herokuapp.com/register/chef`, values)
+        .post(`https://chef-portfolio-be.herokuapp.com/register/chef`, chefVal)
         .then(res => {
           console.log("success", res);
           setStatus(res.data);
@@ -156,8 +165,7 @@ const FormikOnboardForm = withFormik({
           username,
           password,
           name,
-          email,
-          is_chef
+          email
         })
         .then(res => {
           console.log("success", res);
