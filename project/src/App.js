@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+import Header from "./components/Header";
 import CreatePost from "./components/CreatePost";
 // import MyContext from './context/myContext';
 import Home from "./components/home/home";
@@ -14,6 +15,7 @@ import Recipe from "./components/Recipe";
 function App() {
   return (
     <div className="App">
+      <Header></Header>
       <div className="signUpForm">
         <Route exact path="/signup">
           <FormikOnboardForm />
