@@ -15,7 +15,8 @@ const CreateRecipe = props => {
     // recipe_id: 4,
     title: "",
     servings: 0,
-    instructions: ""
+    instructions: "",
+    images: null
   });
   const { chef_id } = useParams();
 
@@ -54,12 +55,14 @@ const CreateRecipe = props => {
     const id = chef_id;
     axiosWithAuth()
       .post(
-        `https://chef-portfolio-be.herokuapp.com/chef/${id}/recipes`
+        `https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes`,
+        addRecipe
       )
       .then(response => {
         console.log("success", response);
         localStorage.setItem("token", response.data.payload);
-      });
+      })
+      .catch(error => console.log(error.response));
   };
 
   const Ingredient = e => {
