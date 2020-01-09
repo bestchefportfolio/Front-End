@@ -5,6 +5,7 @@ import RecipeCard from "../RecipeCard";
 import { useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Btn = styled(Button)`
   margin-top: 1%;
@@ -39,7 +40,9 @@ export default function PortfolioPage() {
     <section className="recipe-list">
       <h1>{chefName}'s Portfolio Page</h1>
       <h2>{chefBusiness}</h2>
-      <Btn color="primary">Create post</Btn>
+      <Btn tag={Link} to="/create-recipe" color="primary">
+        Create post
+      </Btn>
       {recipes.map((item, index) => {
         return (
           <RecipeCard
