@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import { useParams } from 'react-router-dom';
 // import {axiosWithAuth} from '../utils/axiosWithAuth';
 // import { setIn } from 'formik';
 
@@ -12,6 +13,7 @@ const CreateRecipe = props => {
     instructions: "",
     images: ""
   });
+  const { chef_id } = useParams();
 
 //   useEffect(() => {
 //       
@@ -45,12 +47,14 @@ const CreateRecipe = props => {
     // }
     e.preventDefault();
     console.log(addRecipe);
+    const id = chef_id;
     axiosWithAuth()
       .post(
-          `https://chef-portfolio-be.herokuapp.com/chef/1/recipes`
+          `https://chef-portfolio-be.herokuapp.com/chef/${id}/recipes`
       )
       .then(response =>{
           console.log("success", response)
+          console.log(chef_id);
           localStorage.setItem('token', response.data.payload);
 
       })
