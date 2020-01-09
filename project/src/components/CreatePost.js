@@ -2,22 +2,26 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useParams } from 'react-router-dom';
+
 // import {axiosWithAuth} from '../utils/axiosWithAuth';
 // import { setIn } from 'formik';
+// import jwt from "jsonwebtoken";
+
+// const id = jwt.decode(localStorage.getItem("token"));
+// console.log(id.chef_id);
 
 const CreateRecipe = props => {
   const [addRecipe, setAddRecipe] = useState({
     // recipe_id: 4,
     title: "",
     servings: 0,
-    instructions: "",
-    images: ""
+    instructions: ""
   });
   const { chef_id } = useParams();
 
-//   useEffect(() => {
-//       
-//   },[])
+  //   useEffect(() => {
+  //
+  //   },[])
 
   const [ingredients, setIngredients] = useState({
     ingredients: ""
@@ -50,14 +54,12 @@ const CreateRecipe = props => {
     const id = chef_id;
     axiosWithAuth()
       .post(
-          `https://chef-portfolio-be.herokuapp.com/chef/${id}/recipes`
+        `https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes`
       )
-      .then(response =>{
-          console.log("success", response)
-          console.log(chef_id);
-          localStorage.setItem('token', response.data.payload);
-
-      })
+      .then(response => {
+        console.log("success", response);
+        localStorage.setItem("token", response.data.payload);
+      });
   };
 
   const Ingredient = e => {
@@ -84,7 +86,7 @@ const CreateRecipe = props => {
     >
       <h3>Create New Recipe</h3>
       <input
-      className="title"
+        className="title"
         type="text"
         // recipe_id='title'
         name="title"
@@ -110,13 +112,13 @@ const CreateRecipe = props => {
         required
       />
 
-      <input
+      {/* <input
         type="text"
         name="images"
         value={addRecipe.images}
         placeholder="Image URL"
         onChange={handleChange}
-      />
+      /> */}
 
       {/* {addRecipe.ingredients.map((item, index) => (
                     <div key={index}>{item}</div>
