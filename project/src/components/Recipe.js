@@ -1,26 +1,32 @@
-import React, {useState, useEffect} from 'react';
-import {axiosWithAuth} from '../utils/axiosWithAuth';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Recipe = () => {
-    const [recipeData, setRecipeData] = useState([]);
+export default function Recipe() {
+  const [recipeData, setRecipeData] = useState([]);
+  const { recipe_id } = useParams();
 
-    useEffect(() => {
-        axiosWithAuth()
-            .get('https://chef-portfolio-be.herokuapp.com/recipes/')
-            .then(res => {
-                setRecipeData(res.data)
-                console.log('Return Recipe Data', res.data)
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
-    }, [])
+  useEffect(() => {
+    const id = recipe_id;
+    axios
+      .get(`https://chef-portfolio-be.herokuapp.com/recipes/${id}`)
+      .then(res => {
+        setRecipeData(res.data.recipe);
+        console.log("Return Recipe Data", res.data.recipe);
+      })
+      .catch(error => {
+        console.log("error", error.res);
+      });
+  }, [recipe_id]);
 
-    return (
-        <>
-            
-        </>
-    )
-};
-
-export default Recipe;
+  return (
+    <div>
+      <div>
+        <strong>{recipeData.title}</strong>
+      </div>
+      <img src={recipeData.images} width="40%"></img>
+      <div>servings: {recipeData.servings}</div>
+      <div>instructions: {recipeData.instructions}</div>
+    </div>
+  );
+}
