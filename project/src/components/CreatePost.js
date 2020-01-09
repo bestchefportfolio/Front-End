@@ -4,7 +4,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import jwt from "jsonwebtoken";
 
 const id = jwt.decode(localStorage.getItem("token"));
-console.log(id.chef_id);
+// console.log(id.chef_id);
 
 const CreateRecipe = props => {
   const [addRecipe, setAddRecipe] = useState({
@@ -47,10 +47,9 @@ const CreateRecipe = props => {
     // }
     e.preventDefault();
     console.log(addRecipe);
-    const id = chef_id;
     axiosWithAuth()
       .post(
-        `https://chef-portfolio-be.herokuapp.com/chef/${id}/recipes`,
+        `https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes`,
         addRecipe
       )
       .then(response => {

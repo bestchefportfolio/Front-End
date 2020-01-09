@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardTitle, CardText, CardImg } from "reactstrap";
 import styled from "styled-components";
 
+
 const Rcard = styled(Card)`
   width: 40%;
   margin: 0 auto;
@@ -28,6 +29,7 @@ export default function RecipeCard(props) {
           alt={props.title}
         ></CardImg>
         <RcardText>{props.instructions}</RcardText>
+        
       </Rcard>
     </div>
   );
