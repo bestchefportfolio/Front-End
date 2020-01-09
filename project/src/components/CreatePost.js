@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import { useParams } from 'react-router-dom';
+import jwt from "jsonwebtoken";
 
-// import {axiosWithAuth} from '../utils/axiosWithAuth';
-// import { setIn } from 'formik';
-// import jwt from "jsonwebtoken";
-
-// const id = jwt.decode(localStorage.getItem("token"));
-// console.log(id.chef_id);
+const id = jwt.decode(localStorage.getItem("token"));
+console.log(id.chef_id);
 
 const CreateRecipe = props => {
   const [addRecipe, setAddRecipe] = useState({
@@ -18,8 +14,7 @@ const CreateRecipe = props => {
     instructions: "",
     images: null
   });
-  const { chef_id } = useParams();
-
+  
   //   useEffect(() => {
   //
   //   },[])
@@ -52,7 +47,6 @@ const CreateRecipe = props => {
     // }
     e.preventDefault();
     console.log(addRecipe);
-    const id = chef_id;
     axiosWithAuth()
       .post(
         `https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes`,
