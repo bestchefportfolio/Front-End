@@ -14,8 +14,8 @@ const Btn = styled(Button)`
 
 export default function PortfolioPage() {
   const [recipes, setRecipes] = useState([]);
-  const [chefName, setChefName] = useState('');
-  const [chefBusiness, setChefBusiness] = useState('');
+  const [chefName, setChefName] = useState("");
+  const [chefBusiness, setChefBusiness] = useState("");
   const { chef_id } = useParams();
 
   useEffect(() => {
@@ -45,9 +45,11 @@ export default function PortfolioPage() {
         Create post
       </Btn>
       {recipes.map((item, index) => {
+        console.log(item.recipe_id);
         return (
           <RecipeCard
             key={index}
+            id={item.recipe_id}
             title={item.title}
             images={item.images}
             randomImage={
