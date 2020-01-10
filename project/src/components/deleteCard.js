@@ -3,7 +3,7 @@ import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
 export default function DeleteCard()  {
-    // console.log(deleteRecipe);
+    console.log(DeleteCard);
     // axiosWithAuth()
     //     .delete(`https://chef-portfolio-be.herokuapp.com/chef/${id.chef_id}/recipes/${id.recipe_id}`)
     //     .then(res => {
