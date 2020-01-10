@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import RecipeCard from "../../components/RecipeCard";
 
-
-const SearchForm=(props)=> {
+const SearchForm = props => {
   const [query, setQuery] = useState("");
-  
+
   const recipes = props.data.filter(recipe =>
     recipe.title.toLowerCase().includes(query.toLowerCase())
   );
@@ -12,7 +11,7 @@ const SearchForm=(props)=> {
   const handleInputChange = event => {
     setQuery(event.target.value);
   };
-  
+
   return (
     <div className="Recipes">
       <form className="search">
@@ -28,22 +27,21 @@ const SearchForm=(props)=> {
         />
       </form>
       <div className="Recipe">
-        {recipes.map(data => {
+        {recipes.map((data, index) => {
           return (
             <RecipeCard
-            key={data.id}
-            title={data.title}
-            servings={data.servings}
-            instructions={data.instructions}
-            images={data.images}
-            // src={data.image} 
+              key={index}
+              id={data.id}
+              title={data.title}
+              servings={data.servings}
+              instructions={data.instructions}
+              images={data.images}
             />
-            
           );
         })}
       </div>
     </div>
   );
-}
+};
 
 export default SearchForm;
