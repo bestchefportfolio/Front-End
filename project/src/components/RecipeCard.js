@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardTitle, CardText, CardImg } from "reactstrap";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Recipe from "./Recipe";
 
 const Rcard = styled(Card)`
@@ -19,10 +19,11 @@ const RcardText = styled(CardText)`
 `;
 
 export default function RecipeCard(props) {
+  console.log(props.id);
   return (
     <div>
       <Rcard outline color="warning">
-        <Link to={`/recipe/:recipe_id`}>
+        <Link to={`/recipe/${props.id}`}>
           <CardHeader className="card-header">{props.title}</CardHeader>
         </Link>
         <CardImg
