@@ -3,6 +3,8 @@ import { Card, CardTitle, CardText, CardImg } from "reactstrap";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import Recipe from "./Recipe";
+import DeleteCard from './deleteCard';
+
 
 const Rcard = styled(Card)`
   width: 40%;
@@ -33,6 +35,7 @@ export default function RecipeCard(props) {
           alt={props.title}
         ></CardImg>
         <RcardText>{props.instructions}</RcardText>
+        <DeleteCard/>
       </Rcard>
     </div>
   );
